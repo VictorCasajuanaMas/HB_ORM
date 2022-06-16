@@ -1,0 +1,9 @@
+*.exe
+*.c
+\.vscode
+nul.map
+*.log
+*.dbf
+*.cdx
+*.fpt
+\.hbmk

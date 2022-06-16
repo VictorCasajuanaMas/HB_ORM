@@ -1,0 +1,7 @@
+#define VALID_RANGE    'valid_range'
+#define VALID_MIN      'valid_min'
+#define VALID_MAX      'valid_max'
+#define VALID_EXISTS   'valid_exists'
+#define VALID_REQUIRED 'valid_required'
+#define VALID_EMAIL    'valid_email'
+#define VALID_LENGHT   'valid_lenght'

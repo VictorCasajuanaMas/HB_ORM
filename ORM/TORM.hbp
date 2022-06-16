@@ -1,0 +1,6 @@
+*.prg
+.\ado\*.prg
+.\collection\*.prg
+.\dbf\*.prg
+.\tdb\*.prg
+-I.\

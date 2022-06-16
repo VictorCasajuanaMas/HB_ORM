@@ -1,0 +1,17 @@
+-inc
+-b
+
+prueba.prg
+
+-lhbwin
+
+..\scalar\*.prg
+..\TCollection\*.prg
+..\TReturn\*.prg
+..\TTryCatchShowError\*.prg
+..\TLog\*.prg
+@..\TValidation\TVAlidation.hbp
+@..\orm\TORM.hbp
+.\modelos\*.prg
+.\*.prg
+..\debugger\debugger.prg
