@@ -32,6 +32,18 @@ oFicha:Save()
 oFicha:Find(1)
 ~~~
 
+~~~
+?oFicha:CODIGO
+?oFicha:oDireccion:POBLACION
+~~~
+
+~~~
+oFactura := Factura():New(1)
+for each oLinea in oFactura:oLineas
+      ?oLinea:ARTICULO
+Next
+~~~
+
 Ver documentación completa: https://github.com/VictorCasajuanaMas/HB_ORM/tree/main/ORM#readme
 
 
