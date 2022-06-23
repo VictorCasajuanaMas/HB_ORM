@@ -57,6 +57,12 @@ METHOD CreateStructure() CLASS Factura
         :cDescription   := 'Orden principal'
         :AddIndexToModel()
     END
+    
+    WITH OBJECT TORMForeignKey():New( Self )
+        :cModel        := 'FacturaLinea'
+        :cField        := 'NUMERO'
+        :AddForeignKeyToModel()
+    END
 
 Return ( Nil )
 

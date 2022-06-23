@@ -26,9 +26,11 @@
     Else
         ?'Error al guardar el cliente ' + oCliente:__oReturn:LogToString()
     EndIf
+    oCliente:End()
 
     oCliente:= Cliente():New()
     ?'N. de registros ' + oCliente:All():Len():Str()
+
 
     oCliente:End()
 Return ( Nil )
