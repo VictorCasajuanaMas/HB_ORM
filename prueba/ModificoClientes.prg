@@ -1,11 +1,11 @@
 Function ModificoClientes()
 
     Local oCliente := Cliente():New(1)
-
+    
     ?
     ?'Modifico Clientes ------------------------------------------------------'
 
-    oCliente:LoadFromHash({'NOMBRE' => 'Modificado', 'PESO' => 88 }):Success():Str()
+    ?'Cargado:' + oCliente:LoadFromHash({'NOMBRE' => 'Modificado', 'PESO' => 80 }):Success():Str()
     ?'Modificado:' + oCliente:Save():Success():Str()
     oCliente:End()
 

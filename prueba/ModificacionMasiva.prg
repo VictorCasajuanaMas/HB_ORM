@@ -26,18 +26,19 @@ Function ModificacionMasiva()
         oCliente:Skip()
     Enddo
     oCliente:End()
+    
 
     ?'Modificación masiva con update ---------------------------------------'
     oCliente := Cliente():New()
     oCliente:Where('PESO', 58):Update( {'PESO' => 85} )
 
-    oCliente := Cliente():New()
+   /*  oCliente := Cliente():New()
     oCliente:All()
     oCliente:GoTop()
     While .Not. oCliente:Eof()
         ?oCliente:PESO
         oCliente:Skip()
     Enddo
-    oCliente:End()
+    oCliente:End() */
     
 Return Nil 

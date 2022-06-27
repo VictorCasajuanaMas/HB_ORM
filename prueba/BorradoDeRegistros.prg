@@ -6,17 +6,13 @@ Function BorradoDeRegistros()
     ?'Borrado de registros-------------------------------------'
 
     ?'Registros:' + oCliente:RecCount():Str()
-    ?'Borrando 1 registros '
-    oCliente:Delete(1):Str()
-    ?'Registros:'
-    oCliente:RecCount():Str()
-    ?'Borrando 2 registros '
-    oCliente:Delete(2,3):Str()
+    ?'Borrando 1 registros ' + oCliente:Delete(1):Str()
+    ?'Registros:' + oCliente:RecCount():Str()
+    ?'Borrando 2 registros ' + oCliente:Delete({2,3}):Str()
     ?'Registros:' + oCliente:RecCount():Str()
 
     oCliente:Find(4)
-    ?'Borrando 1 registros '
-    oCliente:Delete():Str()
+    ?'Borrando 1 registros ' + oCliente:Delete():Str()
     ?'Registros:' + oCliente:RecCount():Str()
     oCliente:End()
 
