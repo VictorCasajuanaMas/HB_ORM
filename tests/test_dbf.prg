@@ -1201,7 +1201,7 @@ METHOD Test_LoadFromSource() CLASS Test_ORM_DBF
 
     Local oTestFicha := TestFicha():New()
     Local cAlias     := 'TestFicha'
-    Local cDbfFile   := '.\vision\TestFichas'
+    Local cDbfFile   := '.\db\TestFichas'
 
     oTestFicha:DropTable()
     oTestFicha:Insert({;
@@ -1230,7 +1230,7 @@ METHOD Test_LoadMultipleFromSource() CLASS Test_ORM_DBF
 
     Local oTestDocLin := TestDocLin():New()
     Local cAlias     := 'TestDocLin'
-    Local cDbfFile   := '.\vision\TestDocLins'
+    Local cDbfFile   := '.\db\TestDocLins'
 
     oTestDocLin:DropTable()
     oTestDocLin:Insert({;
@@ -1264,7 +1264,7 @@ METHOD Test_PutToSource() CLASS Test_ORM_DBF
 
     Local oTestFicha := TestFicha():New()
     Local cAlias     := 'TestFicha'
-    Local cDbfFile   := '.\vision\TestFichas'
+    Local cDbfFile   := '.\db\TestFichas'
 
     oTestFicha:DropTable()
     oTestFicha:Insert({;
@@ -1300,7 +1300,7 @@ METHOD Test_PutMultipleToSource() CLASS Test_ORM_DBF
 
     Local oTestDocLin := TestDocLin():New()
     Local cAlias     := 'TestDocLin'
-    Local cDbfFile   := '.\vision\TestDocLins'
+    Local cDbfFile   := '.\db\TestDocLins'
 
     oTestDocLin:DropTable()
     oTestDocLin:Insert({;
@@ -3112,7 +3112,7 @@ METHOD Test_Update_Fail() CLASS Test_ORM_DBF
 
     Local oTestFicha := TestFicha():New()
     Local cAlias     := 'TestFicha'
-    Local cDbfFile   := '.\vision\TestFichas'
+    Local cDbfFile   := '.\db\TestFichas'
 
     oTestFicha:DropTable()
 

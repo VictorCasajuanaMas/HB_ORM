@@ -30,7 +30,7 @@ Function Validaciones()
 
     oFicha:EMAIL := 'lolo@lolol.com'
     ?oFicha:Valid():Fail()
-    ?oFicha:LogToString()
+    ?oFicha:LogToString() 
 
 
 

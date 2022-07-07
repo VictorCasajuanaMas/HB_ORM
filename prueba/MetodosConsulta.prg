@@ -82,6 +82,7 @@ Function MetodosConsulta()
     ?ocliente:CODIGO
     oCliente:GoBottom()
     ?ocliente:CODIGO
+    ?ocliente:ToHashes():Str()
     oCliente:End()
 
     // ----------------------------
@@ -92,6 +93,7 @@ Function MetodosConsulta()
     ?ocliente:NOMBRE:Alltrim()
     oCliente:GoBottom()
     ?ocliente:NOMBRE:Alltrim()
+    ?ocliente:ToHashes():Str()
     oCliente:End()
 
     ?'Order By condition --------------------------------------------------------'
@@ -107,6 +109,7 @@ Function MetodosConsulta()
     oCliente := Cliente():New()
     oCliente:Where('CODIGO', '>=', 5);
             :Select('CODIGO', 'NOMBRE');
+            :OrderBy('NOMBRE', 'DESC');
             :Take(2);
             :Get()
     ?ocliente:ToHashes():Str()
@@ -117,19 +120,23 @@ Function MetodosConsulta()
     oCliente:Where('CODIGO', '>=', 5);
             :Select('CODIGO', 'NOMBRE');
             :Offset(3);
+            :Take(2);
             :Get()
     ?ocliente:ToHashes():Str()
     oCliente:End()
 
     ?'Persistent --------------------------------------------------------'
     oCliente := Cliente():New()
-    oCliente:Query:PersistentOn()
+    //oCliente:Query:PersistentOn()
+
     oCliente:Where('CODIGO', '>=', 5);
             :Select('CODIGO', 'NOMBRE');
             :Get()
+
     oCliente:Where('CODIGO', '<=', 7);
         :Select('CODIGO', 'NOMBRE');
         :Get()
+    
     ?ocliente:ToHashes():Str()
     oCliente:End()
 

@@ -9,6 +9,7 @@ Function Main()
 
     ?'Inicio:' + cInitTime
 
+
     OverRideMethods()
 
     oSuite := TestSuite():New()
@@ -34,11 +35,10 @@ Return ( Nil )
 
 Static Function OverRideMethods()
 
-   //OVERRIDE METHOD Path  IN CLASS TORMDBF WITH RutaVisionwin
-   TORMDBF():SetPath( 'c:\si\trabajo\fwh\pruebas\orm\vision\' )
-   OVERRIDE METHOD Path  IN CLASS TORMADO WITH RutaVisionwin
+   TORMDBF():SetPath( '.\db\' )
+   OVERRIDE METHOD Path  IN CLASS TORMADO WITH Ruta
 
 Return ( Nil )
 
-Function RutaVisionwin()
-Return ( 'c:\si\trabajo\fwh\pruebas\orm\vision\' )
+Function Ruta()
+Return ( '.\db\' )

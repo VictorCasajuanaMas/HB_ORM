@@ -13,7 +13,7 @@ Function Paginacion()
     CreoMasclientes()
 
     oCliente:All()
-    oCliente:Pagination:SetRowsxPage( 3 )
+    oCliente:Pagination:SetRowsxPage( 5 )
     oCliente:Pagination:GoTop()
 
     For nPagina := 1 To oCliente:Pagination:GetLastPageNumber()

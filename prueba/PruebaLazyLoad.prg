@@ -8,6 +8,7 @@ Function PruebaLazyLoad()
     CreoMasclientes()
 
     oCliente := Cliente():New()
+    oCliente:LazyLoad()
 
     ?
     ?'Prueba Lazy Load. Mirar el log.log !!!! --------------------------------------------------'
@@ -15,15 +16,14 @@ Function PruebaLazyLoad()
     oCliente:LogActivate()
     oCliente:LogDelete()
     ?'Lo cargo todo'
-    
-    oCliente:LazyLoadPessimist()
-
 
     ?oCliente:Find(10):Success()
     ?oCliente:Find(2):Success()
     ?oCliente:Find(12):Success()
-    oCliente:LogWrite('hola')
 
     oCliente:End()
+
+    oCliente := Cliente():New()
+    
 
 Return ( Nil )

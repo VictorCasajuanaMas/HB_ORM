@@ -297,7 +297,7 @@ METHOD Test_LazyShared_ChangeSource() CLASS Test_ORM_LazyLoad
 
     // Detecta el cambio de path y entonces actualiza el lazyshared
     Local oTestFichaLazy  := TestFichaLazy():New():LazyLoadShared()
-    Local cOtherFullSource := hb_cwd() + 'vision\otropath\' + oTestFichaLazy:TableName + '.dbf'
+    Local cOtherFullSource := hb_cwd() + 'db\otropath\' + oTestFichaLazy:TableName + '.dbf'
     
     oTestFichaLazy:&(TORM_LAZYSHARED):InitCollection()
 
@@ -315,10 +315,10 @@ METHOD Test_LazyShared_ChangeSource() CLASS Test_ORM_LazyLoad
 
     ::assert:equals( 4, oTestFichaLazy:RecCount() )   
 
-    TORMDBF():SetPath( hb_cwd() + 'vision\otropath\' )
+    TORMDBF():SetPath( hb_cwd() + 'db\otropath\' )
     ::assert:equals( 0, oTestFichaLazy:RecCount() )    
     ::assert:true( File( cOtherFullSource ) )
-    TORMDBF():SetPath( '.\vision\' )
+    TORMDBF():SetPath( '.\db\' )
     
 Return ( Nil )
 
@@ -329,7 +329,7 @@ METHOD Test_LazyShared_mulitple_ChangeSource() CLASS Test_ORM_LazyLoad
     Local oTestFichaLazy1  := TestFichaLazy():New()
     Local oTestFichaLazy2  := TestFichaLazy():New()
     Local oTestFichaLazy3  := TestFichaLazy():New()
-    Local cOtherFullSource := hb_cwd() + 'vision\otropath\' + oTestFichaLazy1:TableName + '.dbf'
+    Local cOtherFullSource := hb_cwd() + 'db\otropath\' + oTestFichaLazy1:TableName + '.dbf'
 
     oTestFichaLazy1:&(TORM_LAZYSHARED):InitCollection()
 
@@ -349,12 +349,12 @@ METHOD Test_LazyShared_mulitple_ChangeSource() CLASS Test_ORM_LazyLoad
     ::assert:equals( 4, oTestFichaLazy2:RecCount() )    
     ::assert:equals( 4, oTestFichaLazy3:RecCount() )    
 
-    TORMDBF():SetPath( hb_cwd() + 'vision\otropath\' )
+    TORMDBF():SetPath( hb_cwd() + 'db\otropath\' )
     ::assert:equals( 0, oTestFichaLazy1:RecCount(), oTestFichaLazy1:__oReturn:LogToString() )    
     ::assert:true( File( cOtherFullSource ) )
     ::assert:equals( 0, oTestFichaLazy2:RecCount() )    
     ::assert:equals( 0, oTestFichaLazy3:RecCount() )    
-    TORMDBF():SetPath( '.\vision\' )
+    TORMDBF():SetPath( '.\db\' )
     
 Return ( Nil )
 
