@@ -35,7 +35,6 @@ METHOD New( oTORMModel ) CLASS TORMDBFGet
     ::Super:New()
     ::oTORMModel := oTORMModel
 
-    
 Return ( Self )
 
 /* METHOD: Get( )

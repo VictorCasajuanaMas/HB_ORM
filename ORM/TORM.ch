@@ -142,6 +142,5 @@
                             31 => {'[Info] 031 Buscando (Seek) $1 en $2 orden $3 alias $4', {'$1','$2','$3','$4'}},;
                             32 => {'[Info] 032 Localizando (Locate) $1 en $2 por $3 alias $4', {'$1','$2','$3','$4'}},;
                             33 => {'[Info] 033 Comprobando existencia de fichero $1', {'$1'}},;
-                            34 => {'[Info] 034 Actualizando (Update) modelo $1 de alias $2', {'$1','$2'}},;
-                            35 => {'[Info] 035 Localizando $1 en la colección de $2 según $3', {'$1','$2','$3'}};
+                            34 => {'[Info] 034 Actualizando (Update) modelo $1 de alias $2', {'$1','$2'}};
                         }

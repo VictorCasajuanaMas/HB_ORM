@@ -194,7 +194,7 @@ METHOD Check( xSelect ) CLASS TORMSelect
             If xValue:Has( TORM_AS )
 
                 cField := xValue:Substr( 1, xValue:At( TORM_AS ) - 1 )
-                cAlias := xValue:Substr( xValue:RAt( TORM_AS ) + TORM_AS:Len() + 2, xValue:Len() )
+                cAlias := xValue:Substr( xValue:RAt( TORM_AS ) + TORM_AS:Len(),  xValue:Len() )
                 aAdD( ::aSelect, MSelect():New( cField, cAlias ) )
 
             ElseIf xValue:NotHas( Space( 1 ) )

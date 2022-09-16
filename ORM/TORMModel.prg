@@ -22,29 +22,28 @@
 #include 'hboo.ch'
 #include 'TORM.ch'
 
-
 CREATE CLASS TORMModel FROM TCollection, TReturnState, TLog
 
     EXPORTED:
-        DATA __DataSource          AS CHARACTER INIT TORM_DATASOURCEDEFAULT
-        DATA __DataSource_Initial  AS CHARACTER INIT ''
-        DATA __oSource             AS OBJECT    INIT Nil
-        DATA __cName               AS CHARACTER INIT '' READONLY
-        DATA __cDescription        AS CHARACTER INIT '' READONLY
-        DATA __aFields             AS ARRAY     INIT Array( 0 )
+        DATA __DataSource            AS CHARACTER INIT TORM_DATASOURCEDEFAULT
+        DATA __DataSource_Initial    AS CHARACTER INIT ''
+        DATA __oSource               AS OBJECT    INIT Nil
+        DATA __cName                 AS CHARACTER INIT '' READONLY
+        DATA __cDescription          AS CHARACTER INIT '' READONLY
+        DATA __aFields               AS ARRAY     INIT Array( 0 )
         DATA __xFindValue      
-        DATA __oReturn             AS OBJECT    INIT Nil
-        DATA __oInitialBuffer      AS OBJECT    INIT Nil
-        DATA __oIndexes            AS OBJECT    INIT Nil
-        DATA __oForeignKeys        AS OBJECT    INIT Nil
-        DATA __oRelations          AS OBJECT    INIT Nil
-        DATA __oLazyLoad           AS OBJECT    INIT Nil
-        DATA __oQuery              AS OBJECT    INIT Nil
-        DATA __oPagination         AS OBJECT    INIT Nil
-        DATA __lInEdition          AS LOGICAL   INIT .F.
-        DATA __lWhereInitGroup     AS LOGICAL   INIT .T.     
-        DATA __nWhereCounterGroup  AS NUMERIC   INIT 0       
-
+        DATA __oReturn               AS OBJECT    INIT Nil
+        DATA __oInitialBuffer        AS OBJECT    INIT Nil
+        DATA __oIndexes              AS OBJECT    INIT Nil
+        DATA __oForeignKeys          AS OBJECT    INIT Nil
+        DATA __oRelations            AS OBJECT    INIT Nil
+        DATA __oLazyLoad             AS OBJECT    INIT Nil
+        DATA __oQuery                AS OBJECT    INIT Nil
+        DATA __oPagination           AS OBJECT    INIT Nil
+        DATA __lInEdition            AS LOGICAL   INIT .F.
+        DATA __lWhereInitGroup       AS LOGICAL   INIT .T.     
+        DATA __nWhereCounterGroup    AS NUMERIC   INIT 0       
+        DATA __lSoftValidationString AS LOGICAL   INIT .T.
         
         METHOD New( xFindValue ) CONSTRUCTOR
         METHOD Init()
@@ -114,6 +113,8 @@ CREATE CLASS TORMModel FROM TCollection, TReturnState, TLog
         METHOD Query()
         METHOD InitialBuffer()
         METHOD GetField()
+
+        METHOD SoftValidationString( lSoftValidationString ) 
 
     PROTECTED:
 
@@ -523,10 +524,11 @@ METHOD Valid( ... ) CLASS TORMModel
 
     Endif
 
+
     for each oField in aFieldsToValidate
 
         oValidation := TValidation():New( Self:&(oField:cName), oField:hValid, oField:cName )
-        
+        oValidation:SoftLenghtString := ::__lSoftValidationString
         
         If .Not. oValidation:Valid()
 
@@ -1036,6 +1038,7 @@ METHOD LoadFromSource( xSource ) CLASS TORMModel
 
     ::oReturnInit()
     ::__oReturn := TORMPersistence():New( Self ):LoadFromSource( xSource )
+    ::__oRelations:RefreshRelations()
 
 Return ( Self )
 
@@ -1502,6 +1505,26 @@ Devuelve:
 */
 METHOD GetRegistrationLog(  ) CLASS TORMModel
 Return ( ::__oRegistrationLog )
+
+/* METHOD: SoftValidationString( lSoftValidationString )
+    Activa o Desactiva la validación "blanda" de las cadenas para su ancho. Si está activado la validación del tamaño de la cadena de un campo sobre su tamaño máximo será desactivada
+    
+    Parámetros:
+
+        lSoftValidationString - Valor a aplicar
+
+Devuelve:
+    Lógico
+*/
+METHOD SoftValidationString( lSoftValidationString ) CLASS TORMModel
+
+    If HB_ISLOGICAL( lSoftValidationString )
+
+        ::__lSoftValidationString := lSoftValidationString
+
+    Endif
+
+Return ( ::__lSoftValidationString )
 
 
 // ---------------------------------------------------------------------------------------------------------------------

@@ -4,7 +4,6 @@
 #include 'hbclass.ch'
 #include 'TORM.ch'
 
-
 CREATE CLASS TORMCollectionFind 
 
     EXPORTED:
@@ -45,8 +44,6 @@ Devuelve:
 METHOD Find( cOrder ) CLASS TORMCollectionFind
 
     Local oRecord := ::oTORMModel:__Find( ::oTORMModel:__xFindValue, cOrder )
-
-    ::oTORMModel:LogWrite( hb_StrReplace(TORM_INFO_MESSAGE[35][1], TORM_INFO_MESSAGE[35][2], { ::oTORMModel:__xFindValue, ::oTORMModel:TableName(), cOrder } ) )
 
     If oRecord != Nil
 

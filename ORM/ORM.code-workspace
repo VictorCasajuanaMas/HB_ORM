@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../Pruebas/ORM"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"harbour.extraIncludePaths": [
+			"C:\\si\\trabajo\\fwh\\visionwin20\\siclases\\Servicios\\Database\\ORM2.0",
+			"C:\\si\\trabajo\\fwh\\visionwin20\\siclases\\Servicios\\Auxiliares\\TValidation",
+			"C:\\si\\trabajo\\fwh\\visionwin20\\siclases\\Especificas\\Gestion\\Documentos\\TQueDoc\\TQueDoc.inc",
+			"C:\\si\\nlen\\harbour\\include",
+			"C:\\si\\trabajo\\fwh\\Visionwin20\\inc"
+		]
+	}
+}

@@ -20,6 +20,7 @@ Prototipo de ORM con harbour
  - Validaciones
  - Colecciones
  - Paginación
+ - Log
  - Métodos de BD
 
 ### INTRODUCCIÓN
@@ -31,6 +32,7 @@ Para el funcionamiento del ORM son necesarias las clases:
 - **TValidation** : Ofrece la funcionalidad de las validaciones
 - **Clases Scalares** : Ofrecen mejor semántica al código
 - **Tcollection** : Permite la gestión de la colección interna del modelo
+- **TLog** : Permite generar un log
 
 ### ENTORNO
 #### DBF
@@ -1193,6 +1195,17 @@ oPersona:Valid( { 'EMAIL', 'PESO' } )
 ~~~
 En este caso solamente validaría los campos de Email y Peso
 
+En el caso de los campos carácter, se puede desactivar la validación del tamaño para evitar que cuando se guarda a la persistencia una cadena más larga del ancho del campo, que pase igualmente y guarde la cadena ajustada al tamaño del campo en la persistencia. Para este comportamiento se utiliza el método `SoftValidationString()`. Si se le pasa .T. activa una validación "blanda" para que no de fallo al validar un campo carácter que sea mayor al tamaño del campo, .F. lo desactiva.
+Al instanciar el modelo, por defecto este valor está en .T.
+Teniendo un ancho de 100 al campo nombre, el siguiente código pasaría la validación:
+~~~
+oPersona:NOMBRE := Replicate('a',101)
+oPersona:Valid()  // devolvería verdadero
+oPersona:SoftValidationString( .F. )
+oPersona:Valid()  // devolvería falso
+~~~
+
+
 ### COLECCIONES
 Una colección es un conjunto de modelos cargados en el propio modelo mediante los métodos `Get()` o `All()`. Se puede iterar en la colección y el modelo tendrá el valor del Item actual de la colección. Cuando se itera en la colección, la información del item actual de la colección siempre está cargada en el modelo.
 
@@ -1590,6 +1603,25 @@ Se pueden utilizar métodos `HasOne` y `HasMany` en la misma consulta:
 oFactura := Factura():New( xValordebusquda ):Lineas():cliente()
 ~~~
 Este código nos creará un objeto oFactura con los campos de la factura y a su vez un oLineas con todas las líneas y un oCliente con todos los datos del cliente
+
+
+### Log
+El modelo de datos hereda de la clase `TLog` que permite ver en tiempo real las acciones que se están realizando.
+Para activar el log en un modelo hay que ejecutar el método `LogActivate()`
+~~~
+oFactura:LogActivate()
+~~~
+Esto creará un fichero `log.log` con todo el detalle de lo que se está realizando dentro del modelo `oFactura`
+
+También se puede activar un log global que afecte a todos los modelos instanciados mediante el método `LogGlobalActivate()`
+
+Se puede forzar un mensaje personalizado en el log mediante el método `logwrite()`
+~~~
+oFactura:LogWrite( 'Hola' )
+~~~
+Esto creará una línea en el log en el momento exacto que se ejecuta este método con el texto `Hola`
+
+El método `LogDelete()` Elimina el fichero utilizado para almacenar el log.
 
 
 ### MÉTODOS DE BD

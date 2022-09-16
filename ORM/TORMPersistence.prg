@@ -1,10 +1,13 @@
 /* CLASS: TORMPersistence
           Capa de persistencia que se encarga de vifurcar los métodos a cada capa según el DATASOURCE que se utilice
           Cualquier DATASOURCE que se quiera gestionar ha de tener todos los métodos de esta clase
+
+    TODO: Cuando se aplique la persistencia en SQL, intentar hacerlo mediante la inyección de dependencias y el principio de sustitución de liskov
 */
 
 #include 'hbclass.ch'
 #include 'TORM.ch'
+
 
 CREATE CLASS TORMPersistence
 
