@@ -7,6 +7,7 @@
 
     oCliente:CODIGO := 1
     oCliente:NOMBRE := "Juan"
+    oCliente:APELLIDO := "Garcia"
     oCliente:PESO   := 50
     If oCliente:Save():Success()
         ?'Cliente guardado correctamente ' + oCliente:NOMBRE

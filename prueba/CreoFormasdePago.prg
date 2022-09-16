@@ -7,6 +7,7 @@ Function CreoFormasdePago()
 
     oFormapago:CODIGO := 1
     oformapago:NOMBRE := 'Contado'
+    oformapago:DEFECTO := .T.
     If oFormapago:Save():Success
         ?'Forma de pago guardada correctamente ' + oFormapago:NOMBRE
     Else

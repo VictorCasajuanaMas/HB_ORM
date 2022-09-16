@@ -4,7 +4,22 @@
 CREATE CLASS Formapago FROM TORMModel
   EXPORTED:
     METHOD CreateStructure()
+    METHOD DameDefecto()
 ENDCLASS
+
+METHOD DameDefecto() CLASS Formapago
+
+    Local oFormapago := Formapago():New()
+    Local nDefecto := 0
+
+    oFormapago:Find( .T., 'DEFECTO')
+    If oFormapago:Success
+        nDefecto := oFormapago:CODIGO
+    Endif
+
+    oFormapago:End()
+
+Return ( nDefecto )
 
 METHOD CreateStructure() CLASS Formapago
 
@@ -32,6 +47,15 @@ METHOD CreateStructure() CLASS Formapago
         :cDescription := 'TIpo de Pago'
         :AddFieldtoModel()
     END
+
+    WITH OBJECT TORMField():New( Self )
+        :cName   := 'DEFECTO'
+        :cType   := 'L'
+        :cDescription := 'Forma de pago por defecto'
+        :AddFieldtoModel()
+    END
+
+
 
     WITH OBJECT TORMIndex():New( Self )
         :cField         := 'CODIGO'

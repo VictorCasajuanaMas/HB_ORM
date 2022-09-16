@@ -33,6 +33,14 @@ METHOD CreateStructure() CLASS Cliente
     END
 
     WITH OBJECT TORMField():New( Self )
+        :cName   := 'APELLIDO'
+        :cType   := 'C'
+        :nLenght := 100
+        :cDescription := 'Apellido del Cliente'
+        :AddFieldtoModel()
+    END
+
+    WITH OBJECT TORMField():New( Self )
         :cName   := 'PESO'
         :cType   := 'N'
         :nLenght :=  5

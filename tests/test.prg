@@ -9,7 +9,6 @@ Function Main()
 
     ?'Inicio:' + cInitTime
 
-
     OverRideMethods()
 
     oSuite := TestSuite():New()
