@@ -1154,6 +1154,7 @@ Existen los siguientes tipos de Validaciones:
 - **VALID_REQUIRED** : Indica que el campo es obligatorio, en caso de estar vacío el estado del modelo pasaría a fail
 - **VALID_EMAIL** : El campo ha de contener un email correcto. Si está vacío no pasa el estado del modelo a fail
 - **VALID_LENGHT** : Indica el tamaño máximo del campo
+- **VALID_CUSTOM** : Se le puede indicar una validación personalizada mediante un codeblock
 
 se pueden configurar validaciones múltiples:
 ~~~
@@ -1204,6 +1205,44 @@ oPersona:Valid()  // devolvería verdadero
 oPersona:SoftValidationString( .F. )
 oPersona:Valid()  // devolvería falso
 ~~~
+
+**Ejemplo de validación personalizada**
+Para definir una validación personalizada, debe realizarse mediante un codeblock en la definición del modelo, mediante la constante VALID_CUSTOM y como parámetro un codeblock. En el codeblock se definirán las variables a pasar por dispersión mediante `...`:
+~~~
+WITH OBJECT TORMField():New( Self )
+   :cName  := 'NOMBRE'
+   :cType  := 'C'
+   :nLenght:= 50
+   :cDescription := 'Nombre del tipo de pago'
+   :hValid   := { VALID_REQUIRED => 'si',;
+                  VALID_CUSTOM => { | ... | OnlyUpperCase( ... ) } }
+   :AddFieldToModel()
+END 
+~~~
+
+Un ejemplo para la función llamada por codeblock sería la siguiente, teniendo en cuenta este caso de uso:
+~~~
+Static Function OnlyUpperCase( Value )
+
+    Local cChar          as Character := ''
+    Local lOnlyUpperCase as Logical   := .T.
+
+    for each cChar in Value
+
+        if .Not. ( ( asc(cChar) >= 65 .And. asc(cChar) <= 90 ) .Or.;
+                 asc(cChar) == 32 )
+
+            lOnlyUpperCase := .F.
+
+        Endif
+
+    next
+
+Return ( lOnlyUpperCase )
+~~~
+NOTA: Por defecto, recibe como parámetro el valor del campo a validar
+
+Con este ejemplo, podemos incluir toda la lógica que deseemos dentro de la función llamada por el codeblock o en el mismo codeblock, el único requisito es que la función o el codeblock han de devolver un valor lógico para que pueda ser validado correctamente.
 
 
 ### COLECCIONES
