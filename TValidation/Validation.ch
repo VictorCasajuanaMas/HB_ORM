@@ -5,3 +5,4 @@
 #define VALID_REQUIRED 'valid_required'
 #define VALID_EMAIL    'valid_email'
 #define VALID_LENGHT   'valid_lenght'
+#define VALID_CUSTOM   'valid_custom'

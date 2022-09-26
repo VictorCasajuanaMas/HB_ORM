@@ -9,6 +9,7 @@
         Requerido - { VALID_REQUIRED    => 'si' }
         Email     - { VALID_EMAIL       => 'si' }
         Tamaño    - { VALID_LENGHT      => 100 }
+        Custom    - { VALID_CUSTOM      => {||} }
         
 */
 
@@ -41,12 +42,16 @@ CREATE CLASS TValidation
         METHOD ValidaCondicionRequerido( uVAlue )
         METHOD ValidaCondicionEmail( uVAlue )
         METHOD ValidCondicionLenght( nMaxLenght )
+        METHOD ValidConditionCustom( uValue )
 
+        METHOD SoftLenghtString( lSoftLenghtString ) SETGET
+
+            DATA Value              
+            DATA hValid             AS HASH      Init hb_Hash()
+            DATA cField             AS CHARACTER INIT ''
     PROTECTED:
         DATA cValidResultado    AS CHARACTER INIT ''
-        DATA Value              
-        DATA hValid             AS HASH      Init hb_Hash()
-        DATA cField             AS CHARACTER INIT ''
+        DATA lSoftLenghtString  AS LOGICAL   INIT .T.
         
 ENDCLASS
 
@@ -219,6 +224,10 @@ Static Function ExplainValidations( cKey, uVAlue )
             cValidationExplained := ExplainValidationLenght( )
         exit
 
+        case VALID_CUSTOM
+            cValidationExplained := ExplainValidationCustom()
+        exit 
+
     endswitch
 
 Return ( cValidationExplained )
@@ -238,9 +247,6 @@ Return ( ' campo tipo Email' )
 Static Function ExplainValidationExist( uValue )
 Return ( ' existe '+ hb_ValToStr( uVAlue ):Alltrim() )
 
-
-
-
 Static Function ExplainValidationMax( uValue )
 Return ( ' valor máximo ' + hb_ValToStr( uValue ):Alltrim() )
 
@@ -248,9 +254,11 @@ Return ( ' valor máximo ' + hb_ValToStr( uValue ):Alltrim() )
 Static Function ExplainValidationMin( uVAlue ) 
 Return ( ' valor mínimo ' + hb_ValToStr( uValue ):Alltrim() )
 
-
 Static Function ExplainValidationLenght( uVAlue ) 
 Return ( ' Tamaño máximo ' + hb_ValToStr( uValue ):Alltrim() )
+
+Static Function ExplainValidationCustom( uValue )
+Return( ' Validación personalizada incorrecta '+ hb_ValToStr( uValue):Alltrim() )
 
 
 
@@ -313,9 +321,14 @@ METHOD ValidaCondicion( cKey, uValue ) CLASS TValidation
             lOk := ::ValidCondicionLenght( uVAlue )
         exit
 
+        case VALID_CUSTOM
+            lOk := ::ValidConditionCustom( uValue )
+        exit
+
     endswitch
 
 Return ( lOk )
+
 
 
 /* METHOD: ValidaCondicionRango( uValue )
@@ -481,8 +494,9 @@ METHOD ValidaCondicionEmail( uValue ) CLASS TValidation
 
     If hb_At( Upper( uValue ), SI ) <> 0
 
-        if ::Value:NotEmpty() .And.;
-           !hb_regexLike ( '^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$', ::Value:Alltrim() ) 
+        if ::Value:NotEmpty() //.And.;
+            // TODO: Incluir la clase TRegExString
+           //!hb_regexLike ( TRegExString():New():Email(), ::Value:Alltrim() ) 
 
             ::ValidAsignaResultado( 'campo [' + ::cField +'] email incorrecto' )
             lOk := .F.
@@ -508,10 +522,42 @@ METHOD ValidCondicionLenght( nMaxLenght ) CLASS TValidation
 
     hb_default( @nMaxLenght, 0 )
 
-    If ::Value:NotEmpty() .And.;
+    If ::lSoftLenghtString
+
+        Return ( .T. )
+
+    Endif
+
+    If  ::Value:NotEmpty() .And.;
+        HB_ISSTRING( ::Value ) .And.;
        .Not. ( lOk := ::Value:Len() <= nMaxLenght )
 
         ::ValidAsignaResultado( 'campo [' + ::cField +'] valor (' + ::Value:Len():str() + ')  supera el tamaño máximo de ' + nMaxLenght:Str() )
+
+    Endif
+
+Return ( lOk )
+
+/* METHOD: ValidConditionCustom( uValue )
+    Valida un codeblock
+
+    Parámetros:
+        uValue - Codeblock a evaluar
+
+Devuelve:
+    Lógico
+*/
+METHOD ValidConditionCustom( uValue ) CLASS TValidation
+
+    Local lOk As Logical := .T.
+
+    if HB_ISBLOCK( uValue )
+
+        lOk := Eval( uValue, ::Value )
+
+    Else
+
+        lOk := .F.
 
     Endif
 
@@ -529,9 +575,6 @@ METHOD ValidAsignaResultado( cResultado ) CLASS TValidation
 
 Return ( Nil )
 
-
-
-
 /* METHOD: ValidGetResultado()
     Devuelve la cadena "Legible" de la Validación después de ser procesada
 
@@ -540,3 +583,22 @@ Return ( Nil )
 */
 METHOD ValidGetResultado() CLASS TValidation
 Return ( ::cValidResultado )
+
+/* METHOD: SoftLenghtString( lSoftLenghtString )
+    SetGet de lSoftLenghtString
+    
+    Parámetros:
+        lSoftLenghtString - Valor a asignar
+
+Devuelve:
+    Lógico
+*/
+METHOD SoftLenghtString( lSoftLenghtString ) CLASS TValidation
+
+    If HB_ISLOGICAL( lSoftLenghtString )
+
+        ::lSoftLenghtString := lSoftLenghtString 
+
+    Endif
+
+Return ( ::lSoftLenghtString )
